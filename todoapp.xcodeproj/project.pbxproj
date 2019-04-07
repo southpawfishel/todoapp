@@ -8,22 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		5534BA4D22585E3A00ED0A8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534BA4C22585E3A00ED0A8C /* AppDelegate.swift */; };
-		5534BA4F22585E3A00ED0A8C /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534BA4E22585E3A00ED0A8C /* FirstViewController.swift */; };
-		5534BA5122585E3A00ED0A8C /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534BA5022585E3A00ED0A8C /* SecondViewController.swift */; };
-		5534BA5422585E3A00ED0A8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5534BA5222585E3A00ED0A8C /* Main.storyboard */; };
+		5534BA4F22585E3A00ED0A8C /* TodosViewControllerRx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534BA4E22585E3A00ED0A8C /* TodosViewControllerRx.swift */; };
 		5534BA5622585E3D00ED0A8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5534BA5522585E3D00ED0A8C /* Assets.xcassets */; };
 		5534BA5922585E3D00ED0A8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5534BA5722585E3D00ED0A8C /* LaunchScreen.storyboard */; };
+		5534BA6222586DD100ED0A8C /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5534BA6122586DD100ED0A8C /* ReSwift.framework */; };
+		5534BA6422586DE100ED0A8C /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5534BA6322586DE100ED0A8C /* RxSwift.framework */; };
+		55DE05E92259CBEC00DE7325 /* TodosViewControllerRedux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE05E82259CBEC00DE7325 /* TodosViewControllerRedux.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5534BA4922585E3A00ED0A8C /* todoapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todoapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5534BA4C22585E3A00ED0A8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5534BA4E22585E3A00ED0A8C /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		5534BA5022585E3A00ED0A8C /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		5534BA5322585E3A00ED0A8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5534BA4E22585E3A00ED0A8C /* TodosViewControllerRx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosViewControllerRx.swift; sourceTree = "<group>"; };
 		5534BA5522585E3D00ED0A8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5534BA5822585E3D00ED0A8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5534BA5A22585E3D00ED0A8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5534BA6122586DD100ED0A8C /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
+		5534BA6322586DE100ED0A8C /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		55DE05E82259CBEC00DE7325 /* TodosViewControllerRedux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosViewControllerRedux.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5534BA6422586DE100ED0A8C /* RxSwift.framework in Frameworks */,
+				5534BA6222586DD100ED0A8C /* ReSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +46,7 @@
 			children = (
 				5534BA4B22585E3A00ED0A8C /* todoapp */,
 				5534BA4A22585E3A00ED0A8C /* Products */,
+				5534BA6022586DD100ED0A8C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +62,22 @@
 			isa = PBXGroup;
 			children = (
 				5534BA4C22585E3A00ED0A8C /* AppDelegate.swift */,
-				5534BA4E22585E3A00ED0A8C /* FirstViewController.swift */,
-				5534BA5022585E3A00ED0A8C /* SecondViewController.swift */,
-				5534BA5222585E3A00ED0A8C /* Main.storyboard */,
+				5534BA4E22585E3A00ED0A8C /* TodosViewControllerRx.swift */,
+				55DE05E82259CBEC00DE7325 /* TodosViewControllerRedux.swift */,
 				5534BA5522585E3D00ED0A8C /* Assets.xcassets */,
 				5534BA5722585E3D00ED0A8C /* LaunchScreen.storyboard */,
 				5534BA5A22585E3D00ED0A8C /* Info.plist */,
 			);
 			path = todoapp;
+			sourceTree = "<group>";
+		};
+		5534BA6022586DD100ED0A8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5534BA6322586DE100ED0A8C /* RxSwift.framework */,
+				5534BA6122586DD100ED0A8C /* ReSwift.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +90,7 @@
 				5534BA4522585E3A00ED0A8C /* Sources */,
 				5534BA4622585E3A00ED0A8C /* Frameworks */,
 				5534BA4722585E3A00ED0A8C /* Resources */,
+				5534BA6522586E1500ED0A8C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -127,34 +141,49 @@
 			files = (
 				5534BA5922585E3D00ED0A8C /* LaunchScreen.storyboard in Resources */,
 				5534BA5622585E3D00ED0A8C /* Assets.xcassets in Resources */,
-				5534BA5422585E3A00ED0A8C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5534BA6522586E1500ED0A8C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ReSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ReSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5534BA4522585E3A00ED0A8C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5534BA5122585E3A00ED0A8C /* SecondViewController.swift in Sources */,
 				5534BA4D22585E3A00ED0A8C /* AppDelegate.swift in Sources */,
-				5534BA4F22585E3A00ED0A8C /* FirstViewController.swift in Sources */,
+				55DE05E92259CBEC00DE7325 /* TodosViewControllerRedux.swift in Sources */,
+				5534BA4F22585E3A00ED0A8C /* TodosViewControllerRx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5534BA5222585E3A00ED0A8C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5534BA5322585E3A00ED0A8C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5534BA5722585E3D00ED0A8C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -288,6 +317,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJQ5MFP95P;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = todoapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -306,6 +339,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJQ5MFP95P;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = todoapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

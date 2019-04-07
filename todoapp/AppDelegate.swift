@@ -6,41 +6,118 @@
 //  Copyright © 2019 Dave Fishel. All rights reserved.
 //
 
+import ReSwift
+import RxSwift
 import UIKit
+
+// MARK: - Model
+struct Todo {
+    let name: String
+    let complete: Bool
+}
+
+let homeTodos = [
+    Todo(name: "Buy dog food", complete: false),
+    Todo(name: "Do my laundry", complete: true)
+]
+
+let workTodos = [
+    Todo(name: "Something something scrum", complete: false),
+    Todo(name: "1 on 1 with so and so", complete: false)
+]
+
+// MARK: - Rx app stuff
+typealias TodoListRx = Variable<[Todo]>
+
+let homeTodosRx = TodoListRx(homeTodos)
+let workTodosRx = TodoListRx(workTodos)
+
+// MARK: - Redux app stuff
+struct AppState: StateType {
+    let todos: [String:[Todo]]
+}
+
+let mainStore = Store<AppState>(
+    reducer: mainReducer,
+    state: AppState(todos: [
+        "home": homeTodos,
+        "work": workTodos
+    ])
+)
+
+struct UpdateTodosAction: Action {
+    let listId: String
+    let todos: [Todo]
+    let note: String
+}
+
+func mainReducer(action: Action, state: AppState?) -> AppState {
+    return AppState(
+        todos: todosReducer(action: action, state: state!.todos)
+    )
+}
+
+func todosReducer(action: Action, state: [String:[Todo]]) -> [String:[Todo]] {
+    var newState = state
+    
+    switch action {
+    case let updateAction as UpdateTodosAction:
+        newState = Dictionary(uniqueKeysWithValues:
+            state.map { return ($0.key,
+                                $0.key == updateAction.listId ? updateAction.todos : $0.value) }
+        )
+        break;
+    default:
+        break;
+    }
+    
+    return newState
+}
+// MARK: -
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow()
+        
+        //initRxApp()
+        initReduxApp()
+        
+        window!.makeKeyAndVisible()
+        
         return true
     }
-
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    
+    func initRxApp() {
+        let tabController = UITabBarController()
+        tabController.tabBar.tintColor = .purple
+        
+        let homeTodosController = TodosViewControllerRx(withTodos: homeTodosRx)
+        homeTodosController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "first"), tag: 0)
+        
+        let workTodosController = TodosViewControllerRx(withTodos: workTodosRx)
+        workTodosController.tabBarItem = UITabBarItem(title: "Work", image: UIImage(named: "second"), tag: 1)
+        
+        tabController.viewControllers = [homeTodosController, workTodosController]
+        window!.rootViewController = tabController
     }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    func initReduxApp() {
+        let tabController = UITabBarController()
+        tabController.tabBar.tintColor = .purple
+        
+        let homeTodosController = TodosViewControllerRedux(withListId: "home")
+        homeTodosController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "first"), tag: 0)
+        
+        let workTodosController = TodosViewControllerRedux(withListId: "work")
+        workTodosController.tabBarItem = UITabBarItem(title: "Work", image: UIImage(named: "second"), tag: 1)
+        
+        tabController.viewControllers = [homeTodosController, workTodosController]
+        window!.rootViewController = tabController
     }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-
-
 }
 
