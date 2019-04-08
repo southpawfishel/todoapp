@@ -6,6 +6,8 @@
 //  Copyright © 2019 Dave Fishel. All rights reserved.
 //
 
+import Foundation
+
 public struct Lens<ParentType, ChildType> {
     public let get: (ParentType) -> ChildType
     public let set: (ParentType, ChildType) -> ParentType
@@ -34,6 +36,28 @@ public struct IndexLens<ValueType> {
         let lens = Lens<ArrayType, ValueType>(
             get: { $0[index] },
             set: { (arr, value) in arr.enumerated().map{ (i, element) in index == i ? value : element } }
+        )
+        return lens
+    }
+}
+
+// To use KVCLens, your object must be key-value-coding compliant, which means
+// it must be exposed to objc and it also needs to be copyable since its not a
+// value type
+public struct KVCLens<ParentType, ChildType> where ParentType: NSObject, ParentType: NSCopying {
+    public static func forProperty(named: String) -> Lens<ParentType, ChildType> {
+        let lens = Lens<ParentType, ChildType>(
+            get: { parent in
+                guard let child:ChildType = parent.value(forKey: named) as? ChildType else {
+                    fatalError("\(ParentType.self) has no property named \(named)")
+                }
+                return child
+            },
+            set: { parent, value in
+                let newParent = parent.copy() as! ParentType
+                newParent.setValue(value, forKey: named)
+                return newParent
+            }
         )
         return lens
     }
