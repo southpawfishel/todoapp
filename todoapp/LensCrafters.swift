@@ -49,14 +49,14 @@ func ~> <ParentType, MiddleType, ChildType>(lhs: Lens<ParentType, MiddleType>, r
     
     return Lens(
         get: { parent in
-            let view = lhs.get(parent)
-            let child = rhs.get(view)
+            let middle = lhs.get(parent)
+            let child = rhs.get(middle)
             return child
         },
         set: { (parent, child) in
-            let initialView = lhs.get(parent)
-            let updatedView = rhs.set(initialView, child)
-            return lhs.set(parent, updatedView)
+            let middle = lhs.get(parent)
+            let updatedMiddle = rhs.set(middle, child)
+            return lhs.set(parent, updatedMiddle)
         }
     )
 }
