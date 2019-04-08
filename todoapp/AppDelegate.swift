@@ -32,9 +32,26 @@ typealias TodoListRx = Variable<[Todo]>
 let homeTodosRx = TodoListRx(homeTodos)
 let workTodosRx = TodoListRx(workTodos)
 
-// MARK: - Redux app stuff
+// MARK: - Redux w/lenses
+extension Todo {
+    static func nameLens() -> Lens<Todo, String> { return Lens<Todo, String>(
+        get: { $0.name },
+        set: { Todo(name: $1, complete: $0.complete) }
+    )}
+    
+    static func completeLens() -> Lens<Todo, Bool> { return Lens<Todo, Bool>(
+        get: { $0.complete },
+        set: { Todo(name: $0.name, complete: $1) }
+    )}
+}
+
 struct AppState: StateType {
     let todos: [String:[Todo]]
+    
+    static func todosLens() -> Lens<AppState, [String:[Todo]]> { return Lens<AppState, [String:[Todo]]>(
+        get: { $0.todos },
+        set: { AppState(todos: $1) }
+    )}
 }
 
 let mainStore = Store<AppState>(
@@ -45,32 +62,29 @@ let mainStore = Store<AppState>(
     ])
 )
 
-struct UpdateTodosAction: Action {
-    let listId: String
-    let todos: [Todo]
-    let note: String
+protocol LensSetActionProtocol : Action {
+    func updatedState(previousState: AppState) -> AppState
+}
+
+struct LensSetAction<SubStateType> : LensSetActionProtocol {
+    let lens: Lens<AppState, SubStateType>
+    let newSubState: SubStateType
+    
+    func updatedState(previousState: AppState) -> AppState {
+        return lens.set(previousState, newSubState)
+    }
 }
 
 func mainReducer(action: Action, state: AppState?) -> AppState {
-    return AppState(
-        todos: todosReducer(action: action, state: state!.todos)
-    )
-}
-
-func todosReducer(action: Action, state: [String:[Todo]]) -> [String:[Todo]] {
-    var newState = state
+    var newState: AppState = state!
     
     switch action {
-    case let updateAction as UpdateTodosAction:
-        newState = Dictionary(uniqueKeysWithValues:
-            state.map { return ($0.key,
-                                $0.key == updateAction.listId ? updateAction.todos : $0.value) }
-        )
+    case let lensAction as LensSetActionProtocol:
+        newState = lensAction.updatedState(previousState: newState)
         break;
     default:
         break;
     }
-    
     return newState
 }
 // MARK: -
@@ -110,10 +124,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabController = UITabBarController()
         tabController.tabBar.tintColor = .purple
         
-        let homeTodosController = TodosViewControllerRedux(withListId: "home")
+        let homeLens = KeyLens<String, [Todo]>.ForKey("home")
+        let homeTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() ~> homeLens)
         homeTodosController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "first"), tag: 0)
         
-        let workTodosController = TodosViewControllerRedux(withListId: "work")
+        let workLens = KeyLens<String, [Todo]>.ForKey("work")
+        let workTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() ~> workLens)
         workTodosController.tabBarItem = UITabBarItem(title: "Work", image: UIImage(named: "second"), tag: 1)
         
         tabController.viewControllers = [homeTodosController, workTodosController]

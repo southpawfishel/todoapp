@@ -11,14 +11,14 @@ import UIKit
 
 class TodosViewControllerRedux: UIViewController, StoreSubscriber {
     
-    let listId: String
-    var todos: [Todo]? = nil
+    let todoLens: Lens<AppState, [Todo]>
+    var todos: [Todo] = []
     
     var addButton: UIButton? = nil
     var todoTable: UITableView? = nil
     
-    init(withListId: String) {
-        self.listId = withListId
+    init(withLens: Lens<AppState, [Todo]>) {
+        self.todoLens = withLens
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,7 +40,7 @@ class TodosViewControllerRedux: UIViewController, StoreSubscriber {
     }
     
     func newState(state: AppState) {
-        todos = state.todos[listId]!
+        todos = todoLens.get(state)
         updateView()
     }
     
@@ -77,10 +77,13 @@ class TodosViewControllerRedux: UIViewController, StoreSubscriber {
     }
     
     @objc func buttonPressed(sender: UIButton!) {
-        mainStore.dispatch(UpdateTodosAction(
-            listId: listId,
-            todos: self.todos! + [Todo(name: "test todo", complete: false)],
-            note: "add"
+        createNewTodo()
+    }
+    
+    func createNewTodo() {
+        mainStore.dispatch(LensSetAction(
+            lens: todoLens,
+            newSubState: todos + [Todo(name: "test todo", complete: false)]
         ))
     }
 }
@@ -89,7 +92,7 @@ extension TodosViewControllerRedux : UITableViewDelegate, UITableViewDataSource 
     static var cellId = "TodoCell"
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todos!.count
+        return todos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,7 +104,7 @@ extension TodosViewControllerRedux : UITableViewDelegate, UITableViewDataSource 
             cell?.backgroundColor = .yellow
             cell?.selectionStyle = .none
         }
-        let todo = todos![indexPath.row]
+        let todo = todos[indexPath.row]
         cell?.textLabel?.text = todo.name
         cell?.accessoryType = todo.complete ? .checkmark : .none
         return cell!
@@ -110,12 +113,12 @@ extension TodosViewControllerRedux : UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        mainStore.dispatch(UpdateTodosAction(
-            listId: listId,
-            todos: self.todos!.enumerated().map { index, todo in
-                return index == indexPath.row ? Todo(name: todo.name, complete: !todo.complete) : todo
-            },
-            note: "update_complete"
+        let itemLens = IndexLens<Todo>.ForIndex(indexPath.row)
+        let completedLens = Todo.completeLens()
+        let selectedItemCompletedLens: Lens<AppState, Bool> = ((todoLens ~> itemLens) ~> completedLens)
+        mainStore.dispatch(LensSetAction(
+            lens: selectedItemCompletedLens,
+            newSubState: !(itemLens ~> completedLens).get(todos)
         ))
     }
 }

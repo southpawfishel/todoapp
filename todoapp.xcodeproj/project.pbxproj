@@ -14,6 +14,7 @@
 		5534BA6222586DD100ED0A8C /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5534BA6122586DD100ED0A8C /* ReSwift.framework */; };
 		5534BA6422586DE100ED0A8C /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5534BA6322586DE100ED0A8C /* RxSwift.framework */; };
 		55DE05E92259CBEC00DE7325 /* TodosViewControllerRedux.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE05E82259CBEC00DE7325 /* TodosViewControllerRedux.swift */; };
+		55DE05EB225AF76300DE7325 /* LensCrafters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE05EA225AF76300DE7325 /* LensCrafters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5534BA6122586DD100ED0A8C /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = "<group>"; };
 		5534BA6322586DE100ED0A8C /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		55DE05E82259CBEC00DE7325 /* TodosViewControllerRedux.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosViewControllerRedux.swift; sourceTree = "<group>"; };
+		55DE05EA225AF76300DE7325 /* LensCrafters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensCrafters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		5534BA4B22585E3A00ED0A8C /* todoapp */ = {
 			isa = PBXGroup;
 			children = (
+				55DE05EA225AF76300DE7325 /* LensCrafters.swift */,
 				5534BA4C22585E3A00ED0A8C /* AppDelegate.swift */,
 				5534BA4E22585E3A00ED0A8C /* TodosViewControllerRx.swift */,
 				55DE05E82259CBEC00DE7325 /* TodosViewControllerRedux.swift */,
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5534BA4D22585E3A00ED0A8C /* AppDelegate.swift in Sources */,
+				55DE05EB225AF76300DE7325 /* LensCrafters.swift in Sources */,
 				55DE05E92259CBEC00DE7325 /* TodosViewControllerRedux.swift in Sources */,
 				5534BA4F22585E3A00ED0A8C /* TodosViewControllerRx.swift in Sources */,
 			);
