@@ -14,7 +14,7 @@ public struct Lens<ParentType, ChildType> {
 public struct KeyLens<KeyType, ValueType> where KeyType: Hashable {
     public typealias ParentType = [KeyType: ValueType]
     
-    public static func ForKey(_ key: KeyType) -> Lens<ParentType, ValueType> {
+    public static func forKey(_ key: KeyType) -> Lens<ParentType, ValueType> {
         let lens = Lens<ParentType, ValueType>(
             get: { $0[key]! },
             set: { (dict, value) in
@@ -30,7 +30,7 @@ public struct KeyLens<KeyType, ValueType> where KeyType: Hashable {
 public struct IndexLens<ValueType> {
     public typealias ArrayType = [ValueType]
     
-    public static func ForIndex(_ index: Int) -> Lens<ArrayType, ValueType> {
+    public static func forIndex(_ index: Int) -> Lens<ArrayType, ValueType> {
         let lens = Lens<ArrayType, ValueType>(
             get: { $0[index] },
             set: { (arr, value) in arr.enumerated().map{ (i, element) in index == i ? value : element } }

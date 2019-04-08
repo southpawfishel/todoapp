@@ -27,15 +27,19 @@ let workTodos = [
 
 // MARK: - Redux w/lenses
 extension Todo {
-    static func nameLens() -> Lens<Todo, String> { return Lens<Todo, String>(
-        get: { $0.name },
-        set: { Todo(name: $1, complete: $0.complete) }
-    )}
+    static let nameLens: Lens<Todo, String> = {
+        return Lens<Todo, String>(
+            get: { $0.name },
+            set: { Todo(name: $1, complete: $0.complete) }
+        )
+    }()
     
-    static func completeLens() -> Lens<Todo, Bool> { return Lens<Todo, Bool>(
-        get: { $0.complete },
-        set: { Todo(name: $0.name, complete: $1) }
-    )}
+    static let completeLens: Lens<Todo, Bool> = {
+        return Lens<Todo, Bool>(
+            get: { $0.complete },
+            set: { Todo(name: $0.name, complete: $1) }
+        )
+    }()
 }
 
 struct AppState: StateType {
@@ -102,11 +106,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabController = UITabBarController()
         tabController.tabBar.tintColor = .purple
         
-        let homeLens = KeyLens<String, [Todo]>.ForKey("home")
+        let homeLens = KeyLens<String, [Todo]>.forKey("home")
         let homeTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() * homeLens)
         homeTodosController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "first"), tag: 0)
         
-        let workLens = KeyLens<String, [Todo]>.ForKey("work")
+        let workLens = KeyLens<String, [Todo]>.forKey("work")
         let workTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() * workLens)
         workTodosController.tabBarItem = UITabBarItem(title: "Work", image: UIImage(named: "second"), tag: 1)
         

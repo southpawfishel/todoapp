@@ -113,8 +113,8 @@ extension TodosViewControllerRedux : UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        let itemLens = IndexLens<Todo>.ForIndex(indexPath.row)
-        let completedLens = Todo.completeLens()
+        let itemLens = IndexLens<Todo>.forIndex(indexPath.row)
+        let completedLens = Todo.completeLens
         let selectedItemCompletedLens: Lens<AppState, Bool> = todoLens * itemLens * completedLens
         mainStore.dispatch(LensSetAction(
             lens: selectedItemCompletedLens,
