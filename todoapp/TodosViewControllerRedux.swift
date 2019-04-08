@@ -96,9 +96,9 @@ extension TodosViewControllerRedux : UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: TodosViewControllerRx.cellId)
+        var cell = tableView.dequeueReusableCell(withIdentifier: TodosViewControllerRedux.cellId)
         if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: TodosViewControllerRx.cellId)
+            cell = UITableViewCell(style: .default, reuseIdentifier: TodosViewControllerRedux.cellId)
             cell?.tintColor = .purple
             cell?.textLabel?.textColor = .purple
             cell?.backgroundColor = .yellow
@@ -115,10 +115,10 @@ extension TodosViewControllerRedux : UITableViewDelegate, UITableViewDataSource 
         
         let itemLens = IndexLens<Todo>.ForIndex(indexPath.row)
         let completedLens = Todo.completeLens()
-        let selectedItemCompletedLens: Lens<AppState, Bool> = ((todoLens ~> itemLens) ~> completedLens)
+        let selectedItemCompletedLens: Lens<AppState, Bool> = todoLens * itemLens * completedLens
         mainStore.dispatch(LensSetAction(
             lens: selectedItemCompletedLens,
-            newSubState: !(itemLens ~> completedLens).get(todos)
+            newSubState: !(itemLens * completedLens).get(todos)
         ))
     }
 }

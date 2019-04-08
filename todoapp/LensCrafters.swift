@@ -39,13 +39,7 @@ public struct IndexLens<ValueType> {
     }
 }
 
-precedencegroup ComposePrecedence {
-    associativity: left
-}
-
-infix operator ~> : ComposePrecedence
-
-func ~> <ParentType, MiddleType, ChildType>(lhs: Lens<ParentType, MiddleType>, rhs: Lens<MiddleType, ChildType>) -> Lens<ParentType, ChildType> {
+func * <ParentType, MiddleType, ChildType>(lhs: Lens<ParentType, MiddleType>, rhs: Lens<MiddleType, ChildType>) -> Lens<ParentType, ChildType> {
     
     return Lens(
         get: { parent in

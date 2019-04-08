@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5534BA4D22585E3A00ED0A8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534BA4C22585E3A00ED0A8C /* AppDelegate.swift */; };
-		5534BA4F22585E3A00ED0A8C /* TodosViewControllerRx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5534BA4E22585E3A00ED0A8C /* TodosViewControllerRx.swift */; };
 		5534BA5622585E3D00ED0A8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5534BA5522585E3D00ED0A8C /* Assets.xcassets */; };
 		5534BA5922585E3D00ED0A8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5534BA5722585E3D00ED0A8C /* LaunchScreen.storyboard */; };
 		5534BA6222586DD100ED0A8C /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5534BA6122586DD100ED0A8C /* ReSwift.framework */; };
@@ -20,7 +19,6 @@
 /* Begin PBXFileReference section */
 		5534BA4922585E3A00ED0A8C /* todoapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = todoapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5534BA4C22585E3A00ED0A8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5534BA4E22585E3A00ED0A8C /* TodosViewControllerRx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodosViewControllerRx.swift; sourceTree = "<group>"; };
 		5534BA5522585E3D00ED0A8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5534BA5822585E3D00ED0A8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5534BA5A22585E3D00ED0A8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,7 +63,6 @@
 			children = (
 				55DE05EA225AF76300DE7325 /* LensCrafters.swift */,
 				5534BA4C22585E3A00ED0A8C /* AppDelegate.swift */,
-				5534BA4E22585E3A00ED0A8C /* TodosViewControllerRx.swift */,
 				55DE05E82259CBEC00DE7325 /* TodosViewControllerRedux.swift */,
 				5534BA5522585E3D00ED0A8C /* Assets.xcassets */,
 				5534BA5722585E3D00ED0A8C /* LaunchScreen.storyboard */,
@@ -181,7 +178,6 @@
 				5534BA4D22585E3A00ED0A8C /* AppDelegate.swift in Sources */,
 				55DE05EB225AF76300DE7325 /* LensCrafters.swift in Sources */,
 				55DE05E92259CBEC00DE7325 /* TodosViewControllerRedux.swift in Sources */,
-				5534BA4F22585E3A00ED0A8C /* TodosViewControllerRx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

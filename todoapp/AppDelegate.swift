@@ -7,7 +7,6 @@
 //
 
 import ReSwift
-import RxSwift
 import UIKit
 
 // MARK: - Model
@@ -25,12 +24,6 @@ let workTodos = [
     Todo(name: "Something something scrum", complete: false),
     Todo(name: "1 on 1 with so and so", complete: false)
 ]
-
-// MARK: - Rx app stuff
-typealias TodoListRx = Variable<[Todo]>
-
-let homeTodosRx = TodoListRx(homeTodos)
-let workTodosRx = TodoListRx(workTodos)
 
 // MARK: - Redux w/lenses
 extension Todo {
@@ -98,7 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         
-        //initRxApp()
         initReduxApp()
         
         window!.makeKeyAndVisible()
@@ -106,30 +98,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func initRxApp() {
-        let tabController = UITabBarController()
-        tabController.tabBar.tintColor = .purple
-        
-        let homeTodosController = TodosViewControllerRx(withTodos: homeTodosRx)
-        homeTodosController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "first"), tag: 0)
-        
-        let workTodosController = TodosViewControllerRx(withTodos: workTodosRx)
-        workTodosController.tabBarItem = UITabBarItem(title: "Work", image: UIImage(named: "second"), tag: 1)
-        
-        tabController.viewControllers = [homeTodosController, workTodosController]
-        window!.rootViewController = tabController
-    }
-    
     func initReduxApp() {
         let tabController = UITabBarController()
         tabController.tabBar.tintColor = .purple
         
         let homeLens = KeyLens<String, [Todo]>.ForKey("home")
-        let homeTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() ~> homeLens)
+        let homeTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() * homeLens)
         homeTodosController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "first"), tag: 0)
         
         let workLens = KeyLens<String, [Todo]>.ForKey("work")
-        let workTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() ~> workLens)
+        let workTodosController = TodosViewControllerRedux(withLens: AppState.todosLens() * workLens)
         workTodosController.tabBarItem = UITabBarItem(title: "Work", image: UIImage(named: "second"), tag: 1)
         
         tabController.viewControllers = [homeTodosController, workTodosController]
